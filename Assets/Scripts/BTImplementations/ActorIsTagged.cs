@@ -3,8 +3,15 @@
 /// </summary>
 public class ActorIsTagged : Selector
 {
+    //private bool taskSucceded = false;
+
     protected override bool CheckCondition()
     {
-        return base.CheckCondition();
+        bool taskSucceded = false;
+        if (ControlledAI.IsTagged)
+        {
+            taskSucceded = true;
+        }
+        return taskSucceded;
     }
 }

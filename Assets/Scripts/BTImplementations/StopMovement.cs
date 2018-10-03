@@ -5,6 +5,8 @@ public class StopMovement : Task
 {
     public override bool Execute()
     {
-        return base.Execute();
+        ControlledAI.Agent.SetDestination(transform.position);
+        //return base.Execute();
+        return true;
     }
 }

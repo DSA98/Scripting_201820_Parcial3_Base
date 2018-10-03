@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class AIController : ActorController
@@ -14,6 +15,11 @@ public class AIController : ActorController
         MoveActor();
     }
 
+    public void ExecuteRoot()
+    {
+        btRootNode.Execute();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -23,12 +29,13 @@ public class AIController : ActorController
             btRootNode.SetControlledAI(this);
         }
 
-        AIMoveTest.Instance.onAIMoveIssued += MoveAI;
+        //AIMoveTest.Instance.onAIMoveIssued += ExecuteRoot;
+        StartCoroutine(Move());
     }
 
     protected override void OnDestroy()
     {
-        AIMoveTest.Instance.onAIMoveIssued -= MoveAI;
+        //AIMoveTest.Instance.onAIMoveIssued -= ExecuteRoot;
         base.OnDestroy();
     }
 
@@ -47,5 +54,19 @@ public class AIController : ActorController
         }
 
         return result;
+    }
+
+    //private void Update()
+    //{
+    //    btRootNode.Execute();
+    //}
+
+    private IEnumerator Move()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+            ExecuteRoot();
+        }
     }
 }
